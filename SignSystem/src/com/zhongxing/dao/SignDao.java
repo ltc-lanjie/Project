@@ -11,6 +11,7 @@ public interface SignDao {
 	List<Sign> selectByDate(Date before,Date after);
 	List<Sign> select(int id,Date before,Date after);
 	List<Sign> select(int id,Date before,Date after,int status);
+	public List<Sign> select(int id,int year,int month) ;
 	List<Sign> selectAll();
 	List<Sign> selectByStatus(int status);
 	boolean update(Sign sign);

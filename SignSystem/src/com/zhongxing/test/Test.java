@@ -7,10 +7,15 @@ import java.util.Date;
 import java.util.List;
 
 import com.zhongxing.dao.SignDao;
+import com.zhongxing.dao.UserDao;
 import com.zhongxing.dao.impl.ShiftDaoImpl;
 import com.zhongxing.dao.impl.SignDaoImpl;
+import com.zhongxing.dao.impl.UserDaoImpl;
 import com.zhongxing.entity.Shift;
 import com.zhongxing.entity.Sign;
+import com.zhongxing.entity.User;
+import com.zhongxing.server.UpDate;
+import com.zhongxing.server.impl.UpDateImpl;
 
 
 public class Test {
@@ -57,12 +62,19 @@ public class Test {
 //		for(Shift u:li){
 //			System.out.println(u);
 //		}
-		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
-		Date before = sim.parse("2017-07-10");
-		int id = 112;
-		Date after = sim.parse("2017-07-11");
-		SignDao signDao = new SignDaoImpl();
-		System.out.println(signDao.select(id, before, after,2).size());
+//		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+//		Date before = sim.parse("2017-07-10");
+//		int id = 112;
+//		Date after = sim.parse("2017-07-11");
+//		SignDao signDao = new SignDaoImpl();
+//		System.out.println(signDao.select(id, before, after,2).size());
+//		int year = 2017;
+//		int month = 7;
+//		System.out.println(signDao.select(id, year, month).size());
 		
+		UpDate upDate = new UpDateImpl();
+		int id = 112;
+		String password = "123456";
+		System.out.println(upDate.upDateUserPwd(id, password));
 	}
 }

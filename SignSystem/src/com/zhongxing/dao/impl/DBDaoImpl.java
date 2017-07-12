@@ -45,6 +45,9 @@ public class DBDaoImpl implements DBDao {
 					Method setMethod=clazz.getMethod(set.toString(),new Class[]{getMethod.getReturnType()});
 					Class clazz1=Class.forName(re.getMetaData().getColumnClassName(i+1));
 					Constructor con=null;
+					if(re.getString(i+1)==null){
+						break;
+					}
 					if(clazz1.toString().equals("class java.sql.Date")){
 						con=java.util.Date.class.getConstructor(new Class[]{String.class});
 						Date date=new SimpleDateFormat("yyyy-MM-dd").parse(re.getString(i+1));
