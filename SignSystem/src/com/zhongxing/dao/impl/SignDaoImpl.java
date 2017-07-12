@@ -72,4 +72,13 @@ public class SignDaoImpl implements SignDao {
 		List<Sign> list = dbDao.select(sql, Sign.class);
 		return list;
 	}
+	
+	@Override
+	public List<Sign> select(int id, int year,int month){
+		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
+		String sql = "select * from sign where year(signdate) = " + year + " and month(signdate) = " + month + " and uid = " + id;
+		System.out.println(sql);
+		List<Sign> list = dbDao.select(sql, Sign.class);
+		return list;
+	}
 }

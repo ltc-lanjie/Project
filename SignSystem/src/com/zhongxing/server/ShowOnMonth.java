@@ -6,5 +6,5 @@ import java.util.List;
 import com.zhongxing.entity.Sign;
 
 public interface ShowOnMonth {
-	List<Sign> showTable(Integer id,Date date);
+	List<Sign> showTable(Integer id);
 }
