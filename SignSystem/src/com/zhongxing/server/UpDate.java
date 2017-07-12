@@ -1,0 +1,24 @@
+package com.zhongxing.server;
+
+import java.util.Date;
+
+public interface UpDate {
+	boolean insertUser(Integer uid,String utelphone,String upicture,Date ubirthdate,Integer usex,String utype);
+	boolean insertSign(Integer uid,Date signdate);
+	boolean insertScheduling(int uid,int sid);
+	
+	boolean upDateUserPwd(Integer uid,String pwd);
+	boolean upDateUserTel(Integer uid,String utelphone);
+	boolean upDateUserPicture(Integer uid,String upicture);
+	boolean upDateUserBirthdate(Integer uid,Date ubirthdate);
+	boolean upDateUserSex(Integer uid,Integer usex);
+	boolean upDateUserType(Integer uid,String utype);
+	
+	boolean upDateSignCheckintime(Integer uid,String checkintime);
+	boolean upDateSignOffcalltime(Integer uid,String offcalltime);
+	boolean upDateSignSignstatus(Integer uid,int signstatus);
+	
+	boolean upDateScheduling(int uid,int sid);
+	
+	boolean upDateShift(Integer sid,String scheckin,String soffcall);
+}
