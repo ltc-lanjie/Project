@@ -17,7 +17,7 @@ public class JDBCUtil {
 			e.printStackTrace();
 		}
 		try {
-			conn=DriverManager.getConnection("jdbc:mysql://localhost:3306/"+database,user,password);
+			conn=DriverManager.getConnection("jdbc:mysql://localhost:3307/"+database,user,password);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

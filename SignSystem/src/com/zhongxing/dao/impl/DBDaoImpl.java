@@ -17,7 +17,7 @@ import com.zhongxing.dao.DBDao;
 import com.zhongxing.util.JDBCUtil;
 
 public class DBDaoImpl implements DBDao {
-	private final Connection conn=JDBCUtil.getConnection("signsys", "root", "root");
+	private final Connection conn=JDBCUtil.getConnection("signsys", "root", "123");
 	PreparedStatement pre=null;
 	/** 
 	 * 一个辅助方法，其他查询都是通过它进行

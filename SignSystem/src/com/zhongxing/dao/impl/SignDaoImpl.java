@@ -69,6 +69,7 @@ public class SignDaoImpl implements SignDao {
 	public List<Sign> select(int id, Date before, Date after, int status) {
 		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 		String sql = String.format("select * from sign where uid = " + id +" and signdate between '%s' and '%s' and signstatus = '%d'", sim.format(before),sim.format(after),status);
+		
 		List<Sign> list = dbDao.select(sql, Sign.class);
 		return list;
 	}

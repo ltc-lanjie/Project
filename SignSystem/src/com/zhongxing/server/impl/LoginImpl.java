@@ -12,12 +12,14 @@ public class LoginImpl implements Login {
 	UserDao userDao = new UserDaoImpl();
 	
 	@Override
-	public boolean checkById(Integer inputId) {
+	public User checkById(Integer inputId) {
+		User user=null;
 		List<User> list = userDao.select(inputId);
 		if (list.size() > 0) {
-			return true;
+			user=list.get(0);
+			return user;
 		}
-		return false;
+		return user;
 	}
 
 	@Override

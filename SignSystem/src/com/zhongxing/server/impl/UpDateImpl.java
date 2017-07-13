@@ -15,9 +15,9 @@ import com.zhongxing.entity.Scheduling;
 import com.zhongxing.entity.Shift;
 import com.zhongxing.entity.Sign;
 import com.zhongxing.entity.User;
-import com.zhongxing.server.UpDate;
+import com.zhongxing.server.Update;
 
-public class UpDateImpl implements UpDate {
+public class UpdateImpl implements Update {
 	User user = new User();
 	Sign sign = new Sign();
 	Shift shift = new Shift();

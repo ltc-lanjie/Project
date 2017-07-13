@@ -2,20 +2,9 @@ package com.zhongxing.test;
 
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
-import com.zhongxing.dao.SignDao;
-import com.zhongxing.dao.UserDao;
-import com.zhongxing.dao.impl.ShiftDaoImpl;
-import com.zhongxing.dao.impl.SignDaoImpl;
-import com.zhongxing.dao.impl.UserDaoImpl;
-import com.zhongxing.entity.Shift;
-import com.zhongxing.entity.Sign;
-import com.zhongxing.entity.User;
-import com.zhongxing.server.UpDate;
-import com.zhongxing.server.impl.UpDateImpl;
+import com.zhongxing.server.Update;
+import com.zhongxing.server.impl.UpdateImpl;
 
 
 public class Test {
@@ -72,9 +61,9 @@ public class Test {
 //		int month = 7;
 //		System.out.println(signDao.select(id, year, month).size());
 		
-		UpDate upDate = new UpDateImpl();
+		Update update = new UpdateImpl();
 		int id = 112;
 		String password = "123456";
-		System.out.println(upDate.upDateUserPwd(id, password));
+		System.out.println(update.upDateUserPwd(id, password));
 	}
 }

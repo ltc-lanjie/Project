@@ -2,7 +2,7 @@ package com.zhongxing.server;
 
 import java.util.Date;
 
-public interface UpDate {
+public interface Update {
 	boolean insertUser(Integer uid,String utelphone,String upicture,Date ubirthdate,Integer usex,String utype);
 	boolean insertSign(Integer uid,Date signdate);
 	boolean insertScheduling(int uid,int sid);
