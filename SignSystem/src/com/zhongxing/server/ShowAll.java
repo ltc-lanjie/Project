@@ -26,4 +26,10 @@ public interface ShowAll {
 		//班别、签到情况、时间段查询
 		List<Sign> showTable(Integer sid,String type,Date start,Date end);
 		
+		
+		//通过用户编号、时间段、签到情况查询
+		List<Sign> showTable(Integer id,Date start,Date end,String type);
+		//通过用户姓名、时间段、签到情况查询
+		List<Sign> showTabel(String name,Date start,Date end,String type);
+		
 }
