@@ -265,10 +265,14 @@ li {
     text-align:center;
 }
 .t3 tr>th{
-	width: 208px;
+	width: 130px;
     height: 40px;
 }
-
+.t3 tr>td{
+	width: 130px;
+    height: 40px;
+    text-align:center;
+}
 .content2-3 {
 	background: rgba(100, 75, 75, .4);
 	display: none;
@@ -335,11 +339,60 @@ li {
 					</div>
 					<div class="table-M">
 						<%
-							ShowOnMonth som=new ShowOnMonthImpl();
-							List<Sign> list=som.showTable(id);
-							
+							ShowOnMonth som = new ShowOnMonthImpl();
+							List<Sign> list = som.showTable(id);
+							calendar.set(Calendar.DAY_OF_MONTH, 1);
+							int row = calendar.getMaximum(Calendar.WEEK_OF_MONTH);
+							int col = 7;
+							int count = 1;
+							boolean flag = false, flag1 = false;
+							out.print("<table class='t1' border=1px cellspacing='0' style='margin:auto;'><tr><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th>星期六</th><th>星期日</th></tr>");
+							for (int i = 1; i < row + 1; i++) {
+								out.print("<tr>");
+								for (int j = 1; j < col + 1; j++) {
+									if (flag&& count <= calendar.getMaximum(Calendar.DAY_OF_MONTH)) {
+										calendar.set(Calendar.DAY_OF_MONTH, count);
+										calendar.getTime();
+										ShowPersonal sp=new ShowPersonalImpl();
+										list=sp.showTabel(id, calendar.getTime(), calendar.getTime());
+										String output="white";
+										if(list.size()>0){
+											System.out.println(list.get(0).getSignstatus());
+											switch(list.get(0).getSignstatus()){
+											case 0:output="green";break;
+											case 1:output="purple";break;
+											case 2:output="orange";break;
+											case 3:output="blue";break;
+											case 4:output="red";break;
+											case 5:output="black";break;
+											}
+										}
+										out.print(String.format("<td style='background:%s;'>%d</td>", output,count));
+										/* for (int d : days) {
+
+											if (d == count) {
+												flag1 = true;
+												break;
+											} else
+												flag1 = false;
+										} 
+										if (flag1)
+											out.print("<td style='background:rgba(4,255,200,0.8);'>"
+													+ count + "</td>");
+										else
+											out.print("<td style='background:rgba(200,30,90,0.8);'>"
+													+ count + "</td>");*/
+										count++;
+									} else
+										out.print("<td></td>");
+									if (j > 4)
+										flag = true;
+								}
+								out.print("</tr>");
+							}
+							out.print("</table>");
 						%>
-					
+
 						<%-- <%
 							int[] days = Check.checkM(id);
 										calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -393,8 +446,10 @@ li {
 							 <input type="radio" name="signstatus" value=0>查询签到<br>
 							 <input type="radio" name="signstatus" value=1>查询迟到<br>
 							 <input type="radio" name="signstatus" value=2>查询早退<br>
-							 <input type="radio" name="signstatus" value=3>查询缺席<br>
-							 <input type="radio" name="signstatus" value=4>查询所有<br>
+							 <input type="radio" name="signstatus" value=3>查询请假<br>
+							 <input type="radio" name="signstatus" value=4>查询缺席<br>
+							 <input type="radio" name="signstatus" value=4>查询迟到并且早退<br>
+							 <input type="radio" name="signstatus" value=6>查询所有<br>
 							 <input type="button" class="bt_check" value="查询">
 						</div>
 					</div>
@@ -419,16 +474,20 @@ li {
 							<div class="content-font2">筛选条件：</div>
 							<input type="text" name="select_name" placeholder="请输入需要查询的姓名"><br>
 							<input type="text" name="select_id" placeholder="请输入需要查询的id"><br>
-							<input type="radio" name="type1" value=1>查询已签到 <br> <input
-								type="radio" name="type1" value=0>查询未签到<br> <input
-								type="radio" name="type1" value=3>查询所有<br> <input
-								type="button" class="bt_check1" value="查询"><br>
+							<input type="radio" name="signstatus1" value=0>查询签到<br>
+							 <input type="radio" name="signstatus1" value=1>查询迟到<br>
+							 <input type="radio" name="signstatus1" value=2>查询早退<br>
+							 <input type="radio" name="signstatus1" value=3>查询请假<br>
+							 <input type="radio" name="signstatus1" value=4>查询缺席<br>
+							 <input type="radio" name="signstatus1" value=4>查询迟到并且早退<br>
+							 <input type="radio" name="signstatus1" value=6>查询所有<br>
+							 <input type="button" class="bt_check1" value="查询"><br>
 						</div>
 					</div>
 					<div class="content2-22">
 						<div class="outline">
-							<table border=1 class="t3"><tr><th>员工姓名</th><th>员工编号</th><th>日期</th><th>考勤</th></tr></table>
-							<table border=1 id="checkInOrder1" class="inline"></table>
+							<table border=1 class="t3"><tr><th>员工姓名</th><th>员工编号</th><th>日期</th><th>上班签到时间</th><th>下班签到时间</th><th>考勤情况</th></tr></table>
+							<table border=1 class="t3" id="checkInOrder1" class="inline"></table>
 						</div>
 						<div class="go_page">
 							<input type="button" class="pageUp" value="上一页">
@@ -483,15 +542,15 @@ li {
 		classes('content2-3').style = "display:block";
 	};
 	var signstatus=0;
-	for(var i=0;i<name('type').length;i++){
+	for(var i=0;i<name('signstatus').length;i++){
 		name('signstatus')[i].onclick=function(event){
 			signstatus=event.target.value;
 		};
 	}
-	var type1=3;
-	for(var i=0;i<name('type1').length;i++){
-		name('type1')[i].onclick=function(event){
-			type1=event.target.value;
+	var signstatus1=0;
+	for(var i=0;i<name('signstatus1').length;i++){
+		name('signstatus1')[i].onclick=function(event){
+			signstatus1=event.target.value;
 		}
 	}
 	var xhr=new XMLHttpRequest();
@@ -499,10 +558,8 @@ li {
 		xhr.onreadystatechange=function(){
 			if(xhr.readyState==4&&xhr.status==200){
 				id("checkInOrder").innerHTML=xhr.responseText;
-				
 			}
 		};
-		console.log(name('start'));
 		var str="./ShowPersonalServlet?id="+<%=id %>+"&signstatus="+signstatus+"&start="+name('start').value+"&end="+name('end').value;
 		xhr.open("post",str,true);
 		xhr.send();
@@ -533,19 +590,33 @@ li {
 		xhr2.send();
 	}; */
 	var xhr3=new XMLHttpRequest();
-	function go_page(i,n,t,s,e,p){
+	function go_page(i,n,signstatus1,s,e,p){
 		xhr3.onreadystatechange=function(){
 			if(xhr3.readyState==4&&xhr3.status==200){
-				if(xhr3.responseText.indexOf("error",0)<0){
+				//if(xhr3.responseText.indexOf("errorPage",0)<0){
+					if(xhr3.responseText.indexOf("errorTime",0)>=0)
+						alert("请输入正确的时间！");
+					else if(xhr3.responseText.indexOf("errorPage", 0)>=0)
+						alert("页码有误，请重新输入！");
+					else {
+						id("checkInOrder1").innerHTML=xhr3.responseText;
+					}
+					/* if(xhr3.responseText.indexOf("errorTime", 0)<0)
 					id("checkInOrder1").innerHTML=xhr3.responseText;
+					else alert("请输入正确的时间！");
+					if(xhr3.responseText.indexOf("errorPage", 0)<0)
+						id("checkInOrder1").innerHTML=xhr3.responseText;
+						else alert("请输入正确的时间！");
 				}else {
 					alert("输入的页码有误，请重新输入！");
 					classes('pageNum').value=1;
-				}
+				} */
 			}
 		};
 		//var str="./refurbish1.jsp?id="+name('select_id').value+"&name="+name('select_name').value+"&type="+type1+"&start="+name('start1').value+"&end="+name('end1').value+"&pageNum="+classes('pageNum').value;
-		var str="./refurbish1.jsp?id="+i+"&name="+n+"&type="+t+"&start="+s+"&end="+e+"&pageNum="+p;
+		
+		var str="./ShowAllServlet?id="+i+"&name="+n+"&signstatus="+signstatus1+"&start="+s+"&end="+e+"&pageNum="+p;
+		
 		xhr3.open("post",str,true);
 		xhr3.send();
 		/* var str="./refurbish1.jsp";
@@ -554,18 +625,18 @@ li {
 		xhr3.send("id="+i+"&name="+n+"&type="+t+"&start="+s+"&end="+e+"&pageNum="+p); */
 	}
 	classes('go').onclick=function(){
-		go_page(name('select_id').value,name('select_name').value,type1,name('start1').value,name('end1').value,classes('pageNum').value);
+		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,classes('pageNum').value);
 	};
 	classes('pageUp').onclick=function(){
-		go_page(name('select_id').value,name('select_name').value,type1,name('start1').value,name('end1').value,classes('pageNum').value-1);
+		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,classes('pageNum').value-1);
 		classes('pageNum').value=classes('pageNum').value-1;
 	};
 	classes('pageDown').onclick=function(){
-		go_page(name('select_id').value,name('select_name').value,type1,name('start1').value,name('end1').value,parseInt(classes('pageNum').value)+1);
+		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,parseInt(classes('pageNum').value)+1);
 		classes('pageNum').value=parseInt(classes('pageNum').value)+1;
 	};
 	classes("bt_check1").onclick=function(event){
-		go_page(name('select_id').value,name('select_name').value,type1,name('start1').value,name('end1').value,1);
+		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,1);
 		classes('go_page').style="display:block;";
 	};
 </script>
