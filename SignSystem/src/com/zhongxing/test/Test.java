@@ -2,9 +2,10 @@ package com.zhongxing.test;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 
-import com.zhongxing.server.Update;
-import com.zhongxing.server.impl.UpdateImpl;
+import com.zhongxing.dao.impl.DBDaoImpl;
+import com.zhongxing.entity.Sign;
 
 
 public class Test {
@@ -61,9 +62,13 @@ public class Test {
 //		int month = 7;
 //		System.out.println(signDao.select(id, year, month).size());
 		
-		Update update = new UpdateImpl();
+		/*Update update = new UpdateImpl();
 		int id = 112;
 		String password = "123456";
-		System.out.println(update.upDateUserPwd(id, password));
+		System.out.println(update.upDateUserPwd(id, password));*/
+		List<Sign> li=new DBDaoImpl().select("select * from sign where uid= 112 and signdate = '2017-07-14';", Sign.class);
+		for(Sign s:li){
+			System.out.println(s);
+		}
 	}
 }

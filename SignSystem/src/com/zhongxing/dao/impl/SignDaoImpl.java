@@ -22,7 +22,14 @@ public class SignDaoImpl implements SignDao {
 	@Override
 	public boolean update(Sign sign) {
 		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
-		String sql = String.format("update sign set checkintime = '%s',offcalltime = '%s',signstatus = '%d' where uid = '%d' and signdate = '%s'", sign.getCheckintime(),sign.getOffcalltime(),sign.getSignstatus(),sign.getUid(),sim.format(sign.getSigndate()));;
+		String sql=null;
+		if(sign.getCheckintime()==null) return false;
+		if(sign.getOffcalltime()==null) {
+			sql = String.format("update sign set checkintime = '%s',signstatus = '%d' where uid = '%d' and signdate = '%s'", 
+					sign.getCheckintime(),sign.getSignstatus(),sign.getUid(),sim.format(sign.getSigndate()));
+		}else
+		sql = String.format("update sign set checkintime = '%s',offcalltime = '%s',signstatus = '%d' where uid = '%d' and signdate = '%s'", 
+				sign.getCheckintime(),sign.getOffcalltime(),sign.getSignstatus(),sign.getUid(),sim.format(sign.getSigndate()));
 		boolean result = dbDao.update(sql);
 		return result;
 	}
@@ -78,7 +85,6 @@ public class SignDaoImpl implements SignDao {
 	public List<Sign> select(int id, int year,int month){
 		SimpleDateFormat sim = new SimpleDateFormat("yyyy-MM-dd");
 		String sql = "select * from sign where year(signdate) = " + year + " and month(signdate) = " + month + " and uid = " + id;
-		System.out.println(sql);
 		List<Sign> list = dbDao.select(sql, Sign.class);
 		return list;
 	}

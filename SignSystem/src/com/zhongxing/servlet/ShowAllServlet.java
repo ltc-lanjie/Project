@@ -41,7 +41,7 @@ public class ShowAllServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String str_id=request.getParameter("id");
 		Integer id=0;
-		Integer pageNumber=1;
+		Integer pageNumber=-1;
 		String signType=null;
 		
 		String name=request.getParameter("name");
@@ -65,7 +65,7 @@ public class ShowAllServlet extends HttpServlet {
 		}
 		if(pageNum.matches("[1-9][0-9]*")){
 			pageNumber=new Integer(pageNum);
-		}
+		}else out.print("errorPage");
 		Date before=null;
 		Date after=null;
 		try {
@@ -86,15 +86,20 @@ public class ShowAllServlet extends HttpServlet {
 					list2=sa.showTabel(before, after);
 					}
 				else {
-					System.out.println(signstatus);
 					list2=sa.showTable(request.getParameter("signstatus"), before, after);
 				}
 			}else
 			if(signstatus==6) list2=sp.showTabel(id, before, after);
 			else list2=sp.showTable(id, signstatus, before, after);
-			if(pageNumber*10<=list2.size()){
+			int pageStart=(pageNumber-1)*10+1;
+			int pageEnd=pageNumber*10;
+			if(pageNumber==-1||list2.size()<pageStart) {
+				out.print("errorPage");
+				/*System.out.println(pageStart+"  "+pageNumber+(pageNumber<1));
+				return;*/
+			}
+			else if(list2.size()>pageEnd){
 				for(int i=(pageNumber-1)*10;i<pageNumber*10;i++){
-					System.out.println(i+" "+pageNumber);
 					Sign sign=list2.get(i);
 					Integer sign_uid=sign.getUid();
 					User user=ud.select(sign_uid).get(0);
@@ -110,7 +115,7 @@ public class ShowAllServlet extends HttpServlet {
 					out.print(String.format("<tr><td>%s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
 							user.getUname(),sign.getUid(),sign.getCheckintime(),sign.getOffcalltime(),sign.getSigndate(),signType));
 				}
-			}else{
+			}else {
 				for(int i=(pageNumber-1)*10;i<list2.size();i++){
 					Sign sign=list2.get(i);
 					Integer sign_uid=sign.getUid();

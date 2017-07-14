@@ -17,7 +17,6 @@ import com.zhongxing.dao.DBDao;
 import com.zhongxing.util.JDBCUtil;
 
 public class DBDaoImpl implements DBDao {
-	private final Connection conn=JDBCUtil.getConnection("signsys", "root", "123");
 	PreparedStatement pre=null;
 	/** 
 	 * 一个辅助方法，其他查询都是通过它进行
@@ -25,6 +24,7 @@ public class DBDaoImpl implements DBDao {
 	
 	@Override
 	public <T> List<T> select(String sql, Class<T> clazz) {
+		Connection conn=JDBCUtil.getConnection("signsys", "root", "123");
 		List<T> li=new ArrayList<T>();
 		ResultSet re=null;
 		try {
@@ -46,7 +46,7 @@ public class DBDaoImpl implements DBDao {
 					Class clazz1=Class.forName(re.getMetaData().getColumnClassName(i+1));
 					Constructor con=null;
 					if(re.getString(i+1)==null){
-						break;
+						continue;
 					}
 					if(clazz1.toString().equals("class java.sql.Date")){
 						con=java.util.Date.class.getConstructor(new Class[]{String.class});
@@ -93,13 +93,15 @@ public class DBDaoImpl implements DBDao {
 		} catch (ClassNotFoundException e) {
 			System.out.println("加载类对象失败");
 			e.printStackTrace();
+		}finally{
+			JDBCUtil.close(conn, pre, re);
 		}
 		
 		return li;
 	}
 	@Override
 	public boolean update(String sql) {
-		System.out.println(sql);
+		Connection conn=JDBCUtil.getConnection("signsys", "root", "123");
 		boolean result = false;
 		try {
 			pre = conn.prepareStatement(sql);
@@ -114,6 +116,7 @@ public class DBDaoImpl implements DBDao {
 	
 	@Override
 	public boolean insert(String sql) {
+		Connection conn=JDBCUtil.getConnection("signsys", "root", "123");
 		boolean result = false;
 		try {
 			pre = conn.prepareStatement(sql);
@@ -127,6 +130,7 @@ public class DBDaoImpl implements DBDao {
 	}
 	@Override
 	public boolean delete(String sql) {
+		Connection conn=JDBCUtil.getConnection("signsys", "root", "123");
 		boolean result = false;
 		try {
 			pre = conn.prepareStatement(sql);
@@ -140,6 +144,7 @@ public class DBDaoImpl implements DBDao {
 	}
 	
 	private boolean db(Connection conn,String sql){
+		
 		PreparedStatement pre=null;
 		boolean flag=false;
 		try {
@@ -150,6 +155,8 @@ public class DBDaoImpl implements DBDao {
 			System.out.println("加载preparedstatement失败");
 			flag=false;
 			e.printStackTrace();
+		}finally{
+			JDBCUtil.close(conn, pre, null);
 		}
 		return flag;
 	}

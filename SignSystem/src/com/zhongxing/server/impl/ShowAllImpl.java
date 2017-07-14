@@ -57,6 +57,7 @@ public class ShowAllImpl implements ShowAll {
 			for(int i=0;i<li.size();i++){
 				if(li.get(i).getUid()!=id){
 					li.remove(i);
+					i--;
 				}
 			}
 		}
@@ -73,6 +74,7 @@ public class ShowAllImpl implements ShowAll {
 			for(int i=0;i<li.size();i++){
 				if(li.get(i).getUid()!=id){
 					li.remove(i);
+					i--;
 				}
 			}
 		}
@@ -91,6 +93,7 @@ public class ShowAllImpl implements ShowAll {
 			for(int i=0;i<li.size();i++){
 				if(li.get(i).getUid()!=id){
 					li.remove(i);
+					i--;
 				}
 			}
 		}
@@ -134,9 +137,9 @@ public class ShowAllImpl implements ShowAll {
 		}
 		List<Sign> li=signdao.selectByDate(start, end);
 		for(int i=0;i<li.size();i++){
-			System.out.println(li.get(i));
 			if(li.get(i).getSignstatus()!=status){
 				li.remove(i);
+				i--;
 			}
 			
 		}
@@ -158,6 +161,7 @@ public class ShowAllImpl implements ShowAll {
 		for(int i=0;i<li.size();i++){
 			if(li.get(i).getSignstatus()!=status){
 				li.remove(i);
+				i--;
 			}
 		}
 		return li;

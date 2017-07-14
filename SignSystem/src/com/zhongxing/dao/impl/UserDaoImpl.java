@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao {
 				user.getUpicture()==null?"":user.getUpicture(),
 				user.getUsex()==null?"0":String.valueOf(user.getUsex()),
 				user.getUtype()==null?"":user.getUtype());
-				System.out.println(sql);
+				
 	
 				
 				return db.insert(sql);

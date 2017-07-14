@@ -300,6 +300,47 @@ li {
 .pageNum{
 	width:45px;
 }
+.showcolor{
+	float:left;
+	width:170px;
+}
+.showcolor ul{
+	margin:10px auto;
+	line-height:25px;
+	width:130px;
+	height:25px;
+}
+.showcolor1{
+	background:green;
+	width:50px;
+	height:25px;
+}
+.showcolor2{
+	background:purple;
+	width:50px;
+	height:25px;
+}
+.showcolor3{
+	background:orange;
+	width:50px;
+	height:25px;
+}
+.showcolor4{
+	background:blue;
+	width:50px;
+	height:25px;
+}
+.showcolor5{
+	background:red;
+	width:50px;
+	height:25px;
+}
+.showcolor6{
+	background:black;
+	width:50px;
+	height:25px;
+}
+
 </style>
 
 </head>
@@ -337,6 +378,14 @@ li {
 				<div class=content2-1>
 					<div class="content-font1"><%=month%>月份考勤
 					</div>
+					<div class="showcolor">
+						<ul><li class="showcolor1"></li><li>签到</li></ul>
+						<ul><li class="showcolor2"></li><li>迟到</li></ul>
+						<ul><li class="showcolor3"></li><li>早退</li></ul>
+						<ul><li class="showcolor4"></li><li>缺席</li></ul>
+						<ul><li class="showcolor5"></li><li>请假</li></ul>
+						<ul><li class="showcolor6"></li><li>迟到且早退</li></ul>
+					</div>
 					<div class="table-M">
 						<%
 							ShowOnMonth som = new ShowOnMonthImpl();
@@ -346,7 +395,7 @@ li {
 							int col = 7;
 							int count = 1;
 							boolean flag = false, flag1 = false;
-							out.print("<table class='t1' border=1px cellspacing='0' style='margin:auto;'><tr><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th>星期六</th><th>星期日</th></tr>");
+							out.print("<table class='t1' border=1px cellspacing='0' ><tr><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th>星期六</th><th>星期日</th></tr>");
 							for (int i = 1; i < row + 1; i++) {
 								out.print("<tr>");
 								for (int j = 1; j < col + 1; j++) {
@@ -357,7 +406,6 @@ li {
 										list=sp.showTabel(id, calendar.getTime(), calendar.getTime());
 										String output="white";
 										if(list.size()>0){
-											System.out.println(list.get(0).getSignstatus());
 											switch(list.get(0).getSignstatus()){
 											case 0:output="green";break;
 											case 1:output="purple";break;
@@ -438,18 +486,18 @@ li {
 					<div class="content2-21">
 					<div>
 						<div class="content-font2">查询时间：</div><br>
-						开始时间：<br><input type="date" name="start" value="<%=time%>"><br>
-						结束时间：<br><input type="date" name="end" value="<%=time%>"><br>
+						开始时间：<br><input type="date" class="start" value="<%=time%>"><br>
+						结束时间：<br><input type="date" class="end" value="<%=time%>"><br>
 					</div>
 						<div>
 							<div class="content-font2">筛选：</div>
-							 <input type="radio" name="signstatus" value=0>查询签到<br>
-							 <input type="radio" name="signstatus" value=1>查询迟到<br>
-							 <input type="radio" name="signstatus" value=2>查询早退<br>
-							 <input type="radio" name="signstatus" value=3>查询请假<br>
-							 <input type="radio" name="signstatus" value=4>查询缺席<br>
-							 <input type="radio" name="signstatus" value=4>查询迟到并且早退<br>
-							 <input type="radio" name="signstatus" value=6>查询所有<br>
+							 <input type="radio" class="signstatus" value=0>查询签到<br>
+							 <input type="radio" class="signstatus" value=1>查询迟到<br>
+							 <input type="radio" class="signstatus" value=2>查询早退<br>
+							 <input type="radio" class="signstatus" value=3>查询请假<br>
+							 <input type="radio" class="signstatus" value=4>查询缺席<br>
+							 <input type="radio" class="signstatus" value=4>查询迟到并且早退<br>
+							 <input type="radio" class="signstatus" value=6>查询所有<br>
 							 <input type="button" class="bt_check" value="查询">
 						</div>
 					</div>
@@ -467,20 +515,20 @@ li {
 					<div class="content2-21">
 						<div>
 							<div class="content-font2">查询时间：</div><br>
-						开始时间：<br><input type="date" name="start1" value="<%=time%>"><br>
-						结束时间：<br><input type="date" name="end1" value="<%=time%>"><br>
+						开始时间：<br><input type="date" class="start1" value="<%=time%>"><br>
+						结束时间：<br><input type="date" class="end1" value="<%=time%>"><br>
 						</div>
 						<div>
 							<div class="content-font2">筛选条件：</div>
-							<input type="text" name="select_name" placeholder="请输入需要查询的姓名"><br>
-							<input type="text" name="select_id" placeholder="请输入需要查询的id"><br>
-							<input type="radio" name="signstatus1" value=0>查询签到<br>
-							 <input type="radio" name="signstatus1" value=1>查询迟到<br>
-							 <input type="radio" name="signstatus1" value=2>查询早退<br>
-							 <input type="radio" name="signstatus1" value=3>查询请假<br>
-							 <input type="radio" name="signstatus1" value=4>查询缺席<br>
-							 <input type="radio" name="signstatus1" value=4>查询迟到并且早退<br>
-							 <input type="radio" name="signstatus1" value=6>查询所有<br>
+							<input type="text" class="select_name" placeholder="请输入需要查询的姓名"><br>
+							<input type="text" class="select_id" placeholder="请输入需要查询的id"><br>
+							<input type="radio" class="signstatus1" value=0>查询签到<br>
+							 <input type="radio" class="signstatus1" value=1>查询迟到<br>
+							 <input type="radio" class="signstatus1" value=2>查询早退<br>
+							 <input type="radio" class="signstatus1" value=3>查询请假<br>
+							 <input type="radio" class="signstatus1" value=4>查询缺席<br>
+							 <input type="radio" class="signstatus1" value=4>查询迟到并且早退<br>
+							 <input type="radio" class="signstatus1" value=6>查询所有<br>
 							 <input type="button" class="bt_check1" value="查询"><br>
 						</div>
 					</div>
@@ -502,70 +550,55 @@ li {
 	</div>
 </body>
 <script type="text/javascript">
-	function classes(cn) {
-		c = document.getElementsByClassName(cn);
-		if (c.length == 1)
-			return c[0];
-		else
-			return c;
+	function $(obj){
+		result=document.querySelectorAll(obj);
+		switch(result.length){
+		case 0:return null;
+		case 1:return result[0];
+		default:return result;
+		}
 	}
-	function id(id) {
-		return document.getElementById(id);
-	}
-	function tag(tag) {
-		t = document.getElementsByTagName(tag);
-		if (t.length == 1)
-			return t[0];
-		else
-			return t;
-	}
-	function name(name) {
-		n = document.getElementsByName(name);
-		if (n.length == 1)
-			return n[0];
-		else
-			return n;
-	}
-	classes('label1').onclick = function() {
-		classes('content2-1').style = "display:block";
-		classes('content2-2').style = "display:none";
-		classes('content2-3').style = "display:none";
+	
+	$('.label1').onclick = function() {
+		$('.content2-1').style = "display:block";
+		$('.content2-2').style = "display:none";
+		$('.content2-3').style = "display:none";
 	};
-	classes('label2').onclick = function() {
-		classes('content2-1').style = "display:none";
-		classes('content2-2').style = "display:block";
-		classes('content2-3').style = "display:none";
+	$('.label2').onclick = function() {
+		$('.content2-1').style = "display:none";
+		$('.content2-2').style = "display:block";
+		$('.content2-3').style = "display:none";
 	};
-	classes('label3').onclick = function() {
-		classes('content2-1').style = "display:none";
-		classes('content2-2').style = "display:none";
-		classes('content2-3').style = "display:block";
+	$('.label3').onclick = function() {
+		$('.content2-1').style = "display:none";
+		$('.content2-2').style = "display:none";
+		$('.content2-3').style = "display:block";
 	};
 	var signstatus=0;
-	for(var i=0;i<name('signstatus').length;i++){
-		name('signstatus')[i].onclick=function(event){
+	for(var i=0;i<$('.signstatus').length;i++){
+		$('.signstatus')[i].onclick=function(event){
 			signstatus=event.target.value;
 		};
 	}
 	var signstatus1=0;
-	for(var i=0;i<name('signstatus1').length;i++){
-		name('signstatus1')[i].onclick=function(event){
+	for(var i=0;i<$('.signstatus1').length;i++){
+		$('.signstatus1')[i].onclick=function(event){
 			signstatus1=event.target.value;
 		}
 	}
 	var xhr=new XMLHttpRequest();
-	classes("bt_check").onclick=function(event){
+	$(".bt_check").onclick=function(event){
 		xhr.onreadystatechange=function(){
 			if(xhr.readyState==4&&xhr.status==200){
-				id("checkInOrder").innerHTML=xhr.responseText;
+				$("#checkInOrder").innerHTML=xhr.responseText;
 			}
 		};
-		var str="./ShowPersonalServlet?id="+<%=id %>+"&signstatus="+signstatus+"&start="+name('start').value+"&end="+name('end').value;
+		var str="./ShowPersonalServlet?id="+<%=id %>+"&signstatus="+signstatus+"&start="+$('.start').value+"&end="+$('.end').value;
 		xhr.open("post",str,true);
 		xhr.send();
 	};
 	var xhr1=new XMLHttpRequest();
-	id("sign").onclick=function(){
+	$("#sign").onclick=function(){
 		xhr1.onreadystatechange=function(){
 			if(xhr1.readyState==4&&xhr1.status==200){
 				
@@ -573,7 +606,7 @@ li {
 				location.href="./mainPage.jsp";
 			}
 		};
-		var str="./sign.jsp?id="+<%=id %>;
+		var str="./SignServlet?id="+<%=id %>;
 		xhr1.open("post",str,true);
 		xhr1.send();
 	}
@@ -589,6 +622,7 @@ li {
 		xhr2.open("post",str,true);
 		xhr2.send();
 	}; */
+	var pageflag=0;
 	var xhr3=new XMLHttpRequest();
 	function go_page(i,n,signstatus1,s,e,p){
 		xhr3.onreadystatechange=function(){
@@ -596,10 +630,13 @@ li {
 				//if(xhr3.responseText.indexOf("errorPage",0)<0){
 					if(xhr3.responseText.indexOf("errorTime",0)>=0)
 						alert("请输入正确的时间！");
-					else if(xhr3.responseText.indexOf("errorPage", 0)>=0)
+					else if(xhr3.responseText.indexOf("errorPage", 0)>=0){
+						pageflag=0;
 						alert("页码有误，请重新输入！");
+					}
 					else {
-						id("checkInOrder1").innerHTML=xhr3.responseText;
+						pageflag=1;
+						$("#checkInOrder1").innerHTML=xhr3.responseText;
 					}
 					/* if(xhr3.responseText.indexOf("errorTime", 0)<0)
 					id("checkInOrder1").innerHTML=xhr3.responseText;
@@ -624,20 +661,20 @@ li {
 		xhr3.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 		xhr3.send("id="+i+"&name="+n+"&type="+t+"&start="+s+"&end="+e+"&pageNum="+p); */
 	}
-	classes('go').onclick=function(){
-		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,classes('pageNum').value);
+	$('.go').onclick=function(){
+		go_page($('.select_id').value,$('.select_name').value,signstatus1,$('.start1').value,$('.end1').value,$('.pageNum').value);
 	};
-	classes('pageUp').onclick=function(){
-		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,classes('pageNum').value-1);
-		classes('pageNum').value=classes('pageNum').value-1;
+	$('.pageUp').onclick=function(){
+		go_page($('.select_id').value,$('.select_name').value,signstatus1,$('.start1').value,$('.end1').value,$('.pageNum').value-1);
+		$('.pageNum').value=$('.pageNum').value-pageflag;
 	};
-	classes('pageDown').onclick=function(){
-		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,parseInt(classes('pageNum').value)+1);
-		classes('pageNum').value=parseInt(classes('pageNum').value)+1;
+	$('.pageDown').onclick=function(){
+		go_page($('.select_id').value,$('.select_name').value,signstatus1,$('.start1').value,$('.end1').value,parseInt($('.pageNum').value)+1);
+		$('.pageNum').value=parseInt($('.pageNum').value)+pageflag;
 	};
-	classes("bt_check1").onclick=function(event){
-		go_page(name('select_id').value,name('select_name').value,signstatus1,name('start1').value,name('end1').value,1);
-		classes('go_page').style="display:block;";
+	$(".bt_check1").onclick=function(event){
+		go_page($('.select_id').value,$('.select_name').value,signstatus1,$('.start1').value,$('.end1').value,1);
+		$('.go_page').style="display:block;";
 	};
 </script>
 </html>

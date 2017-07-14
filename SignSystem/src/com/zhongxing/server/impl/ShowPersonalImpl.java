@@ -41,6 +41,7 @@ public class ShowPersonalImpl implements ShowPersonal {
 			for(int i=0;i<li.size();i++){
 				if(li.get(i).getUid()!=id){
 					li.remove(i);
+					i--;
 				}
 			}
 		}
@@ -56,6 +57,7 @@ public class ShowPersonalImpl implements ShowPersonal {
 			for(int i=0;i<li.size();i++){
 				if(li.get(i).getUid()!=id){
 					li.remove(i);
+					i--;
 				}
 			}
 		}
@@ -72,7 +74,9 @@ public class ShowPersonalImpl implements ShowPersonal {
 			for(int i=0;i<li.size();i++){
 				if(li.get(i).getUid()!=id){
 					li.remove(i);
+					i--;
 				}
+				
 			}
 		}
 		return li;

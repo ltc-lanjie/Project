@@ -1,5 +1,6 @@
 package com.zhongxing.server.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +62,6 @@ public class UpdateImpl implements Update {
 			return false;
 		}
 		list.get(0).setUpassword(pwd);
-		System.out.println(list.get(0));
 		return userDao.update(list.get(0));
 	}
 
@@ -74,7 +74,6 @@ public class UpdateImpl implements Update {
 			return false;
 		}
 		list.get(0).setUtelphone(utelphone);
-		System.out.println(list.get(0));
 		return userDao.update(list.get(0));
 	}
 
@@ -87,7 +86,6 @@ public class UpdateImpl implements Update {
 			return false;
 		}
 		list.get(0).setUpicture(upicture);
-		System.out.println(list.get(0));
 		return userDao.update(list.get(0));
 	}
 
@@ -100,7 +98,6 @@ public class UpdateImpl implements Update {
 			return false;
 		}
 		list.get(0).setUbirthdate(ubirthdate);
-		System.out.println(list.get(0));
 		return userDao.update(list.get(0));
 	}
 
@@ -113,7 +110,6 @@ public class UpdateImpl implements Update {
 			return false;
 		}
 		list.get(0).setUsex(usex);
-		System.out.println(list.get(0));
 		return userDao.update(list.get(0));
 	}
 
@@ -126,44 +122,64 @@ public class UpdateImpl implements Update {
 			return false;
 		}
 		list.get(0).setUtype(utype);
-		System.out.println(list.get(0));
 		return userDao.update(list.get(0));
 	}
 
 	@Override
 	public boolean upDateSignCheckintime(Integer uid, String checkintime) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		sign.setUid(uid);
-		sign.setCheckintime(checkintime);
 		List<Sign> list = signDao.select(uid);
+		String d2=sdf.format(new Date());
+		for(int i=0;i<list.size();i++){
+			String d1=sdf.format(list.get(i).getSigndate());
+			if(d1.equals(d2)) {
+				sign=list.get(i);
+				sign.setCheckintime(checkintime);
+			}
+		}
 		if (list.size() == 0) {
 			return false;
 		}
-		list.get(0).setCheckintime(checkintime);
-		return signDao.update(list.get(0));
+		return signDao.update(sign);
 	}
 
 	@Override
 	public boolean upDateSignOffcalltime(Integer uid, String offcalltime) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		sign.setUid(uid);
-		sign.setOffcalltime(offcalltime);
 		List<Sign> list = signDao.select(uid);
+		String d2=sdf.format(new Date());
+		for(int i=0;i<list.size();i++){
+			String d1=sdf.format(list.get(i).getSigndate());
+			if(d1.equals(d2)) {
+				sign=list.get(i);
+				sign.setOffcalltime(offcalltime);
+			}
+		}
 		if (list.size() == 0) {
 			return false;
 		}
-		list.get(0).setOffcalltime(offcalltime);
-		return signDao.update(list.get(0));
+		return signDao.update(sign);
 	}
 
 	@Override
 	public boolean upDateSignSignstatus(Integer uid, int signstatus) {
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
 		sign.setUid(uid);
-		sign.setSignstatus(signstatus);
 		List<Sign> list = signDao.select(uid);
+		String d2=sdf.format(new Date());
+		for(int i=0;i<list.size();i++){
+			String d1=sdf.format(list.get(i).getSigndate());
+			if(d1.equals(d2)) {
+				sign=list.get(i);
+				sign.setSignstatus(signstatus);
+			}
+		}
 		if (list.size() == 0) {
 			return false;
 		}
-		list.get(0).setSignstatus(signstatus);
-		return signDao.update(list.get(0));
+		return signDao.update(sign);
 	}
 
 	@Override
