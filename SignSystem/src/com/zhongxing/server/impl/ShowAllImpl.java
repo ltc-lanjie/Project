@@ -101,7 +101,6 @@ public class ShowAllImpl implements ShowAll {
 	 */
 	@Override
 	public List<Sign> showTabel(Date start, Date end) {
-		
 		return signdao.selectByDate(start, end);
 	}
 	/**
@@ -135,9 +134,11 @@ public class ShowAllImpl implements ShowAll {
 		}
 		List<Sign> li=signdao.selectByDate(start, end);
 		for(int i=0;i<li.size();i++){
+			System.out.println(li.get(i));
 			if(li.get(i).getSignstatus()!=status){
 				li.remove(i);
 			}
+			
 		}
 		return li;
 	}

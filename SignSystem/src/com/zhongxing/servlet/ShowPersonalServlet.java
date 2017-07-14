@@ -52,7 +52,8 @@ public class ShowPersonalServlet extends HttpServlet {
 		SignDao sd=new SignDaoImpl();
 		List<Sign> list=new ArrayList();
 		if(before!=null&&after!=null&&(after.getTime()>=before.getTime())){
-			list=sd.select(id, before , after);
+			if(signstatus==6) list=sd.select(id,before,after);
+			else list=sd.select(id, before , after, signstatus);
 			
 			// 编号  日期  上班签到  下班签到  签到情况  
 			for(int i=0;i<list.size();i++){
@@ -63,7 +64,8 @@ public class ShowPersonalServlet extends HttpServlet {
 				case 1:signType="迟到";break;
 				case 2:signType="早退";break;
 				case 3:signType="请假";break;
-				case 4:signType="迟到且早退";break;
+				case 4:signType="缺席";break;
+				case 5:signType="迟到且早退";break;
 				}
 				out.print(String.format("<tr><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
 						sign.getUid(),sdf.format(sign.getSigndate()),sign.getCheckintime(),sign.getOffcalltime(),signType));
