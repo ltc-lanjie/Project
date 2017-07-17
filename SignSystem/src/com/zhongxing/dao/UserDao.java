@@ -18,6 +18,7 @@ public interface UserDao {
 	List<User> select(String name);
 	List<User> select(int id);
 	List<User> selectAll();
+	Integer selectMaxId();
 	boolean update(int id,String[] type,String[] args);
 	boolean update(User user);
 	boolean update(String name,String[] type,String[] args);

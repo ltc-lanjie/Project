@@ -29,8 +29,9 @@ public class UpdateImpl implements Update {
 	SchedulingDao schedulingDao = new SchedulingDaoImpl();
 
 	@Override
-	public boolean insertUser(Integer uid, String utelphone, String upicture,Date ubirthdate, Integer usex, String utype) {
-		user.setUid(uid);
+	public boolean insertUser(String uname, String utelphone, String upicture,Date ubirthdate, Integer usex, String utype) {
+		user.setUname(uname);
+		user.setUpassword("123456");//初始密码
 		user.setUtelphone(utelphone);
 		user.setUpicture(upicture);
 		user.setUbirthdate(ubirthdate);
@@ -135,6 +136,9 @@ public class UpdateImpl implements Update {
 			String d1=sdf.format(list.get(i).getSigndate());
 			if(d1.equals(d2)) {
 				sign=list.get(i);
+				if(sign.getCheckintime()!=null){
+					return false;
+				}
 				sign.setCheckintime(checkintime);
 			}
 		}
@@ -154,6 +158,9 @@ public class UpdateImpl implements Update {
 			String d1=sdf.format(list.get(i).getSigndate());
 			if(d1.equals(d2)) {
 				sign=list.get(i);
+				if(sign.getOffcalltime()!=null){
+					return false;
+				}
 				sign.setOffcalltime(offcalltime);
 			}
 		}

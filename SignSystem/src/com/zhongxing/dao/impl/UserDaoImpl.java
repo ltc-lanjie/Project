@@ -39,8 +39,6 @@ public class UserDaoImpl implements UserDao {
 					user.getUbirthdate()==null?"":sd.format(user.getUbirthdate()),
 					user.getUsex()==null?"0":String.valueOf(user.getUsex()),
 					user.getUtype()==null?"":user.getUtype());
-				System.out.println(sql+"+");
-				 
 				 return db.insert(sql);
 			}else{
 			String sql=String.format("insert into user(uname,upassword,utelphone,upicture,usex,utype) values('%s','%s','%s','%s','%s','%s')", 
@@ -50,9 +48,6 @@ public class UserDaoImpl implements UserDao {
 				user.getUpicture()==null?"":user.getUpicture(),
 				user.getUsex()==null?"0":String.valueOf(user.getUsex()),
 				user.getUtype()==null?"":user.getUtype());
-				
-	
-				
 				return db.insert(sql);
 			}
 	}
@@ -138,6 +133,14 @@ public class UserDaoImpl implements UserDao {
 				user.getUtype(),
 				user.getUid());
 		return db.update(sql);
+	}
+
+
+	@Override
+	public Integer selectMaxId() {
+		// TODO Auto-generated method stub
+		String sql="select uid from user order by uid desc limit 0,1;";
+		return db.select(sql,User.class).get(0).getUid();
 	}
 	
 }

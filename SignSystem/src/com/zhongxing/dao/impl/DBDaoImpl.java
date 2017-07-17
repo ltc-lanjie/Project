@@ -144,7 +144,6 @@ public class DBDaoImpl implements DBDao {
 	}
 	
 	private boolean db(Connection conn,String sql){
-		
 		PreparedStatement pre=null;
 		boolean flag=false;
 		try {
