@@ -48,11 +48,15 @@ public class SignOffServlet extends HttpServlet {
 				if(d3.getTime()>=d2.getTime()) signstatus=0;//正常
 				if(d3.getTime()<d2.getTime()) signstatus=2;//早退
 				Update update=new UpdateImpl();
-				boolean check_update_sign=update.upDateSignOffcalltime(id, sdf1.format(new Date()));
-				if(check_update_sign){
+				String check_update_sign=update.upDateSignOffcalltime(id, sdf1.format(new Date()));
+				if(check_update_sign.equals("success")){
 					update.upDateSignSignstatus(id, signstatus);
 					out.print("签离成功！"); 
-				}else out.print("今日已经下班，请勿重复操作！");
+				}
+				if(check_update_sign.equals("error1")) 
+					out.print("今日已经下班，请勿重复操作！");
+				if(check_update_sign.equals("error4"))
+					out.print("操作异常，请联系管理员！\n 错误码：error4.");
 			} catch (ParseException e) {
 				out.print("下班失败，请联系管理员！");
 				// TODO Auto-generated catch block

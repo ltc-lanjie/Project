@@ -47,11 +47,15 @@ public class SignInServlet extends HttpServlet {
 				if(d3.getTime()<=d1.getTime()) signstatus=0;//正常
 				if(d3.getTime()>d1.getTime()&&d3.getTime()<d2.getTime()) signstatus=1;//迟到
 				Update update=new UpdateImpl();
-				boolean check_update_sign=update.upDateSignCheckintime(id, sdf1.format(new Date()));
-				if(check_update_sign){
+				String check_update_sign=update.upDateSignCheckintime(id, sdf1.format(new Date()));
+				if(check_update_sign.equals("success")){
 					update.upDateSignSignstatus(id, signstatus);
 					out.print("签到成功！");
-				}else out.print("今日已经签到，请勿重复签到！");
+				}
+				if(check_update_sign.equals("error1"))
+					out.print("今日已经签到，请勿重复签到！");
+				if(check_update_sign.equals("error2"))
+					out.print("签到异常，请联系管理员。\n 异常码：error2。");
 			} catch (ParseException e) {
 				out.print("签到失败，请联系管理员！");
 				// TODO Auto-generated catch block

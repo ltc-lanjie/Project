@@ -14,8 +14,8 @@ public interface Update {
 	boolean upDateUserSex(Integer uid,Integer usex);
 	boolean upDateUserType(Integer uid,String utype);
 	
-	boolean upDateSignCheckintime(Integer uid,String checkintime);
-	boolean upDateSignOffcalltime(Integer uid,String offcalltime);
+	String upDateSignCheckintime(Integer uid,String checkintime);
+	String upDateSignOffcalltime(Integer uid,String offcalltime);
 	boolean upDateSignSignstatus(Integer uid,int signstatus);
 	
 	boolean upDateScheduling(int uid,int sid);
