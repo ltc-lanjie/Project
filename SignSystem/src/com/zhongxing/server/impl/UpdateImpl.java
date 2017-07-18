@@ -140,12 +140,14 @@ public class UpdateImpl implements Update {
 					return "error1"; // error1签过了
 				}
 				sign.setCheckintime(checkintime);
-			}else return "error2";                               //error2凌晨插入异常
+			}
 		}
+		if(sign.getCheckintime()==null)
+			return "error2";                               //error2凌晨插入异常
 		if (list.size() == 0) {
-			return "error2";                                     //error2签到操作异常
+			return "error3";                                     //error2签到操作异常
 		}
-		return signDao.update(sign)?"success":"error2";
+		return signDao.update(sign)?"success":"error4";
 	}
 
 	@Override

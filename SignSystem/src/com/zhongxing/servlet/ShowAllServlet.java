@@ -111,9 +111,9 @@ public class ShowAllServlet extends HttpServlet {
 					case 4:signType="缺席";break;
 					case 5:signType="迟到且早退";break;
 					}
-					//姓名 编号 上班签到 下班签到 日期 签到情况
+					//姓名 编号 日期 上班签到 下班签到  签到情况
 					out.print(String.format("<tr><td>%s</td><td>%d</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",
-							user.getUname(),sign.getUid(),sign.getCheckintime(),sign.getOffcalltime(),sign.getSigndate(),signType));
+							user.getUname(),sign.getUid(),sdf.format(sign.getSigndate()),sign.getCheckintime(),sign.getOffcalltime(),signType));
 				}
 			}else {
 				for(int i=(pageNumber-1)*10;i<list2.size();i++){

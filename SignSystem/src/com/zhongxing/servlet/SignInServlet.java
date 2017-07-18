@@ -56,6 +56,10 @@ public class SignInServlet extends HttpServlet {
 					out.print("今日已经签到，请勿重复签到！");
 				if(check_update_sign.equals("error2"))
 					out.print("签到异常，请联系管理员。\n 异常码：error2。");
+				if(check_update_sign.equals("error3"))
+					out.print("签到异常，请联系管理员。\n 异常码：error3。");
+				if(check_update_sign.equals("error4"))
+					out.print("签到异常，请联系管理员。\n 异常码：error4。");
 			} catch (ParseException e) {
 				out.print("签到失败，请联系管理员！");
 				// TODO Auto-generated catch block
