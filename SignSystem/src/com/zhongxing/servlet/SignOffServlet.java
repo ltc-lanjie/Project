@@ -53,10 +53,10 @@ public class SignOffServlet extends HttpServlet {
 					update.upDateSignSignstatus(id, signstatus);
 					out.print("签离成功！"); 
 				}
-				if(check_update_sign.equals("error1")) 
+				if(check_update_sign.equals("Did")) 
 					out.print("今日已经下班，请勿重复操作！");
-				if(check_update_sign.equals("error4"))
-					out.print("操作异常，请联系管理员！\n 错误码：error4.");
+				if(check_update_sign.indexOf("error",0)>=0)
+					out.print(String.format("签到异常，请联系管理员。\n 异常码：%s。", check_update_sign));
 			} catch (ParseException e) {
 				out.print("下班失败，请联系管理员！");
 				// TODO Auto-generated catch block

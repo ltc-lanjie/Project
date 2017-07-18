@@ -137,17 +137,17 @@ public class UpdateImpl implements Update {
 			if(d1.equals(d2)) {
 				sign=list.get(i);
 				if(sign.getCheckintime()!=null){
-					return "error1"; // error1签过了
+					return "Did"; 							// did签过了
 				}
 				sign.setCheckintime(checkintime);
 			}
 		}
 		if(sign.getCheckintime()==null)
-			return "error2";                               //error2凌晨插入异常
+			return "error2";								//error2凌晨插入异常
 		if (list.size() == 0) {
-			return "error3";                                     //error2签到操作异常
+			return "error3";								//error3 id（操作）异常
 		}
-		return signDao.update(sign)?"success":"error4";
+		return signDao.update(sign)?"success":"error4"; 	//error4 更新异常
 	}
 
 	@Override
@@ -160,14 +160,15 @@ public class UpdateImpl implements Update {
 			String d1=sdf.format(list.get(i).getSigndate());
 			if(d1.equals(d2)) {
 				sign=list.get(i);
-				if(sign.getOffcalltime()!=null){                   //error1已经签离
-					return "error1";								//error4凌晨插入异常
-				}													//error4签离操作异常
-				sign.setOffcalltime(offcalltime);
-			}else return "error4";
+				if(sign.getOffcalltime()!=null){                   
+					return "Did";						//did已经签离								
+				}										//error2凌晨插入异常													
+				sign.setOffcalltime(offcalltime);		//error7 id（操作）异常
+			}											//error4更新异常
 		}
+		if(sign.getOffcalltime()==null) return "error2";
 		if (list.size() == 0) {
-			return "error4";
+			return "error7";
 		}
 		return signDao.update(sign)?"success":"error4";
 	}
