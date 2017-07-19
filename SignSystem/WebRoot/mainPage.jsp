@@ -321,7 +321,9 @@ li {
 }
 
 .go_page {
-	position: relative;
+	position: absolute;
+	top:500px;
+	left:500px;
 	display: none;
 }
 
