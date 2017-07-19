@@ -30,7 +30,12 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-		Integer inputId=new Integer(request.getParameter("inputId"));
+		Integer inputId=null;
+		try{
+			inputId=new Integer(request.getParameter("inputId"));
+		}catch(NumberFormatException e){
+			out.print("<script> alert('id不能为非数字，请重新登录。');location.href='./login.html';</script>");
+		}
 		String inputPWD=request.getParameter("pwd");
 		if(inputId!=null&&inputPWD!=null){
 			Login login=new LoginImpl();

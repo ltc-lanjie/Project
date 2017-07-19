@@ -322,7 +322,7 @@ li {
 
 .go_page {
 	position: absolute;
-	top:500px;
+	top:580px;
 	left:500px;
 	display: none;
 }
@@ -447,11 +447,11 @@ li {
 						</ul>
 						<ul>
 							<li class="showcolor4"></li>
-							<li>缺席</li>
+							<li>请假</li>
 						</ul>
 						<ul>
 							<li class="showcolor5"></li>
-							<li>请假</li>
+							<li>缺席</li>
 						</ul>
 						<ul>
 							<li class="showcolor6"></li>
@@ -466,7 +466,7 @@ li {
 							int row = calendar.getMaximum(Calendar.WEEK_OF_MONTH);
 							int col = 7;
 							int count = 1;
-							boolean flag = false, flag1 = false;
+							boolean flag = false;
 							out.print("<table class='t1' border=1px cellspacing='0' ><tr><th>星期一</th><th>星期二</th><th>星期三</th><th>星期四</th><th>星期五</th><th>星期六</th><th>星期日</th></tr>");
 							for (int i = 1; i < row + 1; i++) {
 								out.print("<tr>");
@@ -811,19 +811,21 @@ li {
 	}; */
 	var pageflag = 0;
 	var xhr3 = new XMLHttpRequest();
-	function go_page(i, n, signstatus1, s, e, p) {
+	function go_page(i, n, signstatus1, s, e, p , pchange) {
 		xhr3.onreadystatechange = function() {
 			if (xhr3.readyState == 4 && xhr3.status == 200) {
 				//if(xhr3.responseText.indexOf("errorPage",0)<0){
-				if (xhr3.responseText.indexOf("errorTime", 0) >= 0)
-					alert("请输入正确的时间！");
+				/* if (xhr3.responseText.indexOf("errorTime", 0) >= 0)
+					//alert("请输入正确的时间！");
 				else if (xhr3.responseText.indexOf("errorPage", 0) >= 0) {
-					pageflag = 0;
-					alert("页码有误，请重新输入！");
-				} else {
-					pageflag = 1;
+					 pageflag = 0;
+					alert("页码有误，请重新输入！"); 
+				} else */ 
+				if(xhr3.responseText.indexOf("error",0)<0)
+				{
+					$('.pageNum').value = parseInt($('.pageNum').value) + pchange;
 					$("#checkInOrder1").innerHTML = xhr3.responseText;
-				}
+				}else $('#checkInOrder1').innerHTML="";
 				/* if(xhr3.responseText.indexOf("errorTime", 0)<0)
 				id("checkInOrder1").innerHTML=xhr3.responseText;
 				else alert("请输入正确的时间！");
@@ -850,22 +852,20 @@ li {
 	}
 	$('.go').onclick = function() {
 		go_page($('.select_id').value, $('.select_name').value, signstatus1,
-				$('.start1').value, $('.end1').value, $('.pageNum').value);
+				$('.start1').value, $('.end1').value, $('.pageNum').value , 0);
 	};
 	$('.pageUp').onclick = function() {
 		go_page($('.select_id').value, $('.select_name').value, signstatus1,
-				$('.start1').value, $('.end1').value, $('.pageNum').value - 1);
-		$('.pageNum').value = $('.pageNum').value - pageflag;
+				$('.start1').value, $('.end1').value, $('.pageNum').value - 1, -1);
 	};
 	$('.pageDown').onclick = function() {
 		go_page($('.select_id').value, $('.select_name').value, signstatus1,
 				$('.start1').value, $('.end1').value,
-				parseInt($('.pageNum').value) + 1);
-		$('.pageNum').value = parseInt($('.pageNum').value) + pageflag;
+				parseInt($('.pageNum').value) + 1,1);
 	};
 	$(".bt_check1").onclick = function(event) {
 		go_page($('.select_id').value, $('.select_name').value, signstatus1,
-				$('.start1').value, $('.end1').value, 1);
+				$('.start1').value, $('.end1').value, 1,0);
 		$('.go_page').style = "display:block;";
 	};
 </script>
