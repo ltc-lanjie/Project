@@ -28,10 +28,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 Calendar calendar = Calendar.getInstance();
 String time=sdf.format(calendar.getTime());
 int month=calendar.get(Calendar.MONTH)+1;
-Integer id=new Integer(session.getAttribute("id").toString());
-User user=new UserDaoImpl().select(id).get(0);
-String name=user.getUname();
-String job=user.getUtype();
+Integer id=0;
+String name="";
+String job="";
+try{
+	id=new Integer(session.getAttribute("id").toString());
+}catch(Exception e){
+	out.print("<script>alert('登录超时，请重新登录！');location.href='./login.html';</script>");
+}
+if(id==0) out.print("<script>alert('登录超时，请重新登录！');location.href='./login.html';</script>");
+else{
+	User user=new UserDaoImpl().select(id).get(0);
+	name=user.getUname();
+	job=user.getUtype();
+}
 %>
 <style type="text/css">
 body {
@@ -158,7 +168,12 @@ li {
 	width: 100%;
 	height: 120px;
 }
-
+.label>*>a{
+	color:#000;
+}
+.label>*>a:hover{
+	color:#000;
+}
 .label1,.label2,.label3,.label4 {
 	width: 35px;
 	height: 100%;
@@ -408,29 +423,29 @@ li {
 				</div>
 				<div class="useroperation">
 					<a href="javascript:;">修改密码</a> <a href="javascript:;">异常申述</a> <a
-						href="javascript:;">退出登录</a> <a href="javascript:;">更多</a>
+						href="./LogoutServlet">退出登录</a> <a href="javascript:;">更多</a>
 				</div>
 			</div>
 		</ul>
 		<ul class="content">
 			<li class="content1">
 				<ul class="label">
-					<div class="label1">签到</div>
+					<div class="label1"><a href="javascript:;">签到</a></div>
 				</ul>
 				<ul class="label">
-					<div class="label2">查询个人</div>
+					<div class="label2"><a href="javascript:;">查询个人</a></div>
 				</ul>
 				<ul class="label">
-					<div class="label3">查询所有</div>
+					<div class="label3"><a href="javascript:;">查询所有</a></div>
 				</ul>
 				<ul class="label">
-					<div class="label4">管理</div>
+					<div class="label4"><a href="javascript:;">管理</a></div>
 				</ul>
 			</li>
 			<li class="content2">
 				<div class=content2-1>
 				<div class="margin_top">
-					<div class="content-font1"><%=month%>月份考勤
+					<div class="content-font1" style="font-width:3px"><%=month%>月份考勤
 					</div>
 					<div class="showcolor">
 						<ul>
@@ -529,7 +544,6 @@ li {
 							}
 							out.print("</table>");
 						%>
-
 						<%-- <%
 							int[] days = Check.checkM(id);
 										calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -825,7 +839,15 @@ li {
 				{
 					$('.pageNum').value = parseInt($('.pageNum').value) + pchange;
 					$("#checkInOrder1").innerHTML = xhr3.responseText;
-				}else $('#checkInOrder1').innerHTML="";
+				}else{
+					$('.pageNum').value = 1;
+					go_page(i,n,signstatus1,s,e,1,0);
+				}
+				if(xhr3.responseText.indexOf("errorTime",0)>=0){
+					$("#checkInOrder1").innerHTML = "";
+					alert("输入的时间有误，请重新设置！");
+				}
+				//else $('#checkInOrder1').innerHTML="";
 				/* if(xhr3.responseText.indexOf("errorTime", 0)<0)
 				id("checkInOrder1").innerHTML=xhr3.responseText;
 				else alert("请输入正确的时间！");

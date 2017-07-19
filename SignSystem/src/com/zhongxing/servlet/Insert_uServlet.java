@@ -64,7 +64,7 @@ public class Insert_uServlet extends HttpServlet {
 				}
 			}
 			out.print("请及时更新其信息');location.href='./mainPage.jsp';</script>");
-		}else out.print("<script>alert('插入信息有误')</script>");
+		}else out.print("<script>alert('插入信息有误');location.href='./mainPage.jsp';</script>");
 		
 		out.flush();
 		out.close();

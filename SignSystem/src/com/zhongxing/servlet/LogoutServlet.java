@@ -9,11 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.zhongxing.entity.User;
-import com.zhongxing.server.Login;
-import com.zhongxing.server.impl.LoginImpl;
-
-public class LoginServlet extends HttpServlet {
+public class LogoutServlet extends HttpServlet {
 
 	/**
 	 * The doGet method of the servlet. <br>
@@ -30,25 +26,9 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
-		Integer inputId=null;
-		try{
-			inputId=new Integer(request.getParameter("inputId"));
-		}catch(NumberFormatException e){
-			out.print("<script> alert('id不能为非数字，请重新登录。');location.href='./login.html';</script>");
-		}
-		String inputPWD=request.getParameter("pwd");
-		if(inputId!=null&&inputPWD!=null){
-			Login login=new LoginImpl();
-			User user=login.checkById(inputId);
-			if(user!=null){
-				String url=login.check(inputId, inputPWD);
-				HttpSession session=request.getSession();
-				session.setAttribute("id", inputId);
-				response.sendRedirect("./mainPage.jsp");
-			}else{
-				out.print("<script> alert('id不存在，请重新登录。');location.href='./login.html';</script>");
-			}
-		}
+		HttpSession session=request.getSession(false);
+		session.removeAttribute("id");
+		out.print("<script>alert('你已经成功退出了！');location.href='./login.html';</script>");
 		out.flush();
 		out.close();
 	}
