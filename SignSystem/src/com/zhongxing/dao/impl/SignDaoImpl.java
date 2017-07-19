@@ -30,8 +30,6 @@ public class SignDaoImpl implements SignDao {
 		}else
 		sql = String.format("update sign set checkintime = '%s',offcalltime = '%s',signstatus = '%d' where uid = '%d' and signdate = '%s'", 
 				sign.getCheckintime(),sign.getOffcalltime(),sign.getSignstatus(),sign.getUid(),sim.format(sign.getSigndate()));
-		//-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		System.out.println(sql);
 		boolean result = dbDao.update(sql);
 		return result;
 	}

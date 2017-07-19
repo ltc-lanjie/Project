@@ -56,6 +56,7 @@ public class SignInServlet extends HttpServlet {
 					out.print("今日已经签到，请勿重复签到！");
 				if(check_update_sign.indexOf("error",0)>=0)
 					out.print(String.format("签到异常，请联系管理员。\n 异常码：%s。", check_update_sign));
+				//else out.print(check_update_sign);
 				/*if(check_update_sign.equals("error2"))
 					out.print("签到异常，请联系管理员。\n 异常码：error2。");
 				if(check_update_sign.equals("error3"))

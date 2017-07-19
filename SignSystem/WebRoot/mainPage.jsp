@@ -69,7 +69,7 @@ li {
 	top: 0;
 	left: 0;
 	background-image: url("./img/background1.jpg");
-	background-size: 100% 90%;
+	background-size: 100% 100%;
 	background-repeat: no-repeat;
 }
 
@@ -388,6 +388,9 @@ li {
 	height: 25px;
 }
 
+.margin_top{
+	margin-top:80px;
+}
 </style>
 
 </head>
@@ -426,6 +429,7 @@ li {
 			</li>
 			<li class="content2">
 				<div class=content2-1>
+				<div class="margin_top">
 					<div class="content-font1"><%=month%>月份考勤
 					</div>
 					<div class="showcolor">
@@ -569,8 +573,9 @@ li {
 					<a id="signOff" href="javascript:;" class="content-font2">下班</a>
 					</div>
 				</div>
+				</div>
 				<div class=content2-2>
-
+					<div  class="margin_top">
 					<div class="content2-21">
 						<div>
 							<div class="content-font2">查询时间：</div>
@@ -611,7 +616,9 @@ li {
 						</div>
 					</div>
 				</div>
+				</div>
 				<div class=content2-3>
+				<div class="margin_top">
 					<div class="content2-21">
 						<div>
 							<div class="content-font2">查询时间：</div>
@@ -654,6 +661,7 @@ li {
 								type="button" class="go" value="跳转">
 						</div>
 					</div>
+				</div>
 				</div>
 				<div class=content2-4>
 					<form class="users_insert" action="./Insert_uServlet">
